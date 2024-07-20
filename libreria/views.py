@@ -95,7 +95,7 @@ def adminlibros(request):
     
     libros = Libro.objects.all()
     context = {'libros': libros}
-    return render(request, 'libreria:adminlibros.html', context)
+    return render(request, 'libreria/adminlibros.html', context)
 
 
 
