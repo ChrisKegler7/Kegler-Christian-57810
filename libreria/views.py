@@ -44,18 +44,16 @@ def perfil(request):
 @login_required
 def editar_perfil(request):
     perfil_usuario = request.user.perfil
-    cambios_guardados = False
-
     if request.method == 'POST':
         formulario = FormularioPerfil(request.POST, request.FILES, instance=perfil_usuario)
         if formulario.is_valid():
             formulario.save()
-            cambios_guardados = True
-            return render(request, 'perfil.html', {'formulario': formulario, 'cambios_guardados': cambios_guardados})
+            
+            return redirect('libreria:perfil') 
     else:
         formulario = FormularioPerfil(instance=perfil_usuario)
 
-    return render(request, 'editar_perfil.html', {'formulario': formulario, 'cambios_guardados': cambios_guardados})
+    return render(request, 'editar_perfil.html', {'formulario': formulario})
 
 
 
