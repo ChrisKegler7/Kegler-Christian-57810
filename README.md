@@ -19,6 +19,7 @@ La librería también cuenta con una tienda física, proporcionando una experien
 - **Wishlist:** Guarda tus libros favoritos en una lista de deseos.
 - **Perfil de Usuario:** Gestiona tu perfil y visualiza tu historial de compras.
 
+#link del video: https://youtu.be/mqHmDHu6pjw
 
 ## Usuario administrador 
 
