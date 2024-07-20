@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container py-4">
+    <h2 class="mb-4">Libros Deseados</h2>
+    <hr>
+    {% if libros_deseados %}
+        {% for deseo in libros_deseados %}
+            {% with libro=deseo.libro %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h3 class="card-title">{{ libro.titulo }}</h3>
+                                <p class="card-text"><strong>Autor:</strong> {{ libro.autor }}</p>
+                                <p class="card-text"><strong>Año:</strong> {{ libro.fecha_publicacion|date:"Y" }}</p>
+                                <p class="card-text">{{ libro.sinopsis }}</p>
+                                <p class="card-text"><strong>Precio:</strong> ${{ libro.precio }}</p>
+                            </div>
+                            <div class="col-md-4 text-center align-self-center">
+                                <form action="{% url 'libreria:quitar_de_deseados' libro.id %}" method="POST">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-danger">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x" viewBox="0 0 16 16">
+                                          <path d="M3.354 3.354a.5.5 0 0 0 0 .708L7.293 8l-3.94 3.94a.5.5 0 1 0 .708.708L8 8.707l3.94 3.94a.5.5 0 0 0 .708-.708L8.707 8l3.94-3.94a.5.5 0 0 0-.708-.708L8 7.293 4.06 3.354a.5.5 0 0 0-.706 0z"/>
+                                        </svg>
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endwith %}
+        {% endfor %}
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            No tienes libros en tu lista de deseos.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

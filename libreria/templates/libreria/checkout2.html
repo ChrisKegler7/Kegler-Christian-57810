@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block header_title %}
+    <h1 class="text-center">Proceso finalizado</h1>
+{% endblock %}
+
+{% block header_description %}
+    <p class="text-center">Revisa tu casilla de correo electrónico para proseguir.</p>
+{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="alert alert-success text-center" role="alert">
+            Tu compra ha sido procesada exitosamente. ¡Gracias por tu compra!
+        </div>
+        <div class="text-center mt-4">
+            <p></p>
+            <form action="{% url 'libreria:buscar_libro' %}" method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary btn-lg">Volver al inicio</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

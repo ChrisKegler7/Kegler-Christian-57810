@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block header_title %}
+    Proceso de Checkout
+{% endblock %}
+
+{% block header_description %}
+    Revisa y confirma tu pedido
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Proceso de Checkout</h1>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Libro</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in detalles_carrito %}
+                <tr>
+                    <td>{{ item.libro.titulo }}</td>
+                    <td>{{ item.cantidad }}</td>
+                    <td>{{ item.subtotal }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="text-end">
+        <h4>Total: {{ total }}</h4>
+    </div>
+    <form action="{% url 'libreria:checkout' %}" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary">Confirmar Pedido</button>
+    </form>
+</div>
+{% endblock %}

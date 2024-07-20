@@ -1,0 +1,31 @@
+.agregar-resena .card-body {
+    padding: 20px;
+}
+
+.agregar-resena .form-label {
+    font-size: 14px;
+}
+
+.agregar-resena .rating label {
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.agregar-resena .rating input {
+    display: none;
+}
+
+.agregar-resena .rating label:before {
+    content: '★';
+    font-size: 20px;
+    color: #ddd;
+}
+
+.agregar-resena .rating input:checked ~ label:before {
+    color: #ffc107;
+}
+
+.agregar-resena .btn {
+    font-size: 14px;
+    padding: 8px 12px;
+}

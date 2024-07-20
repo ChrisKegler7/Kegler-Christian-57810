@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="header mb-4">
+        <a href="{% url 'libreria:buscar_libro' %}" class="btn btn-outline-dark m-3">
+            <i class="bi bi-arrow-left"></i> Volver a la lista
+        </a>
+    </div>
+
+    <div class="libro-container">
+        <div class="libro-imagen">
+            <img src="{{ libro.imagen_url }}" alt="{{ libro.titulo }}" class="img-fluid" style="height: 100%; width: auto;">
+        </div>
+        <div class="libro-sinopsis">
+            <div class="libro-sinopsis-inner">
+                <p><strong>Sinopsis:</strong></p>
+                <p>{{ libro.sinopsis }}</p>
+            </div>
+            <div class="libro-agregar">
+                <form action="{% url 'libreria:agregar_al_carrito' libro.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-outline-dark">Agregar al carrito</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección de Reseñas -->
+    <div class="reseñas-section mt-5">
+        <h2>Reseñas de {{ libro.titulo }}</h2>
+        <hr>
+        {% if libro.reseñas.all %}
+            {% for review in libro.reseñas.all %}
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ review.usuario }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ review.fecha }}</h6>
+                        <p class="card-text">{{ review.comentario }}</p>
+                        <div class="rating">
+                            {% for i in "12345" %}
+                                {% if i|add:0 <= review.calificacion %}
+                                    <i class="bi bi-star-fill text-warning"></i>
+                                {% else %}
+                                    <i class="bi bi-star text-warning"></i>
+                                {% endif %}
+                            {% endfor %}
+                            <span class="ms-2">{{ review.calificacion }}/5</span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No hay reseñas para este libro aún.</p>
+        {% endif %}
+    </div>
+</div>
+
+<style>
+    /* Estilos adicionales para la página */
+    .libro-container {
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        max-width: 800px;
+        margin: 0 auto;
+        overflow: hidden;
+    }
+
+    .libro-imagen {
+        width: 40%;
+        height: 400px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .libro-imagen img {
+        width: 100%;
+        height: auto;
+    }
+
+    .libro-sinopsis {
+        width: 60%;
+        height: 400px;
+        padding: 20px;
+        background-color: #f8f9fa;
+        border: 1px solid #ccc;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        text-align: left;
+        position: relative;
+    }
+
+    .libro-sinopsis-inner {
+        height: calc(100% - 60px);
+        overflow-y: auto;
+    }
+
+    .libro-sinopsis p {
+        margin-bottom: 10px;
+    }
+
+    .libro-agregar {
+        position: absolute;
+        bottom: 20px;
+        right: 20px;
+    }
+
+    .reseñas-section {
+        margin-top: 30px;
+    }
+
+    /* Estilos para las estrellas */
+    .rating {
+        display: flex;
+        align-items: center;
+    }
+
+    .rating i {
+        font-size: 1.2rem; /* Tamaño de las estrellas */
+        color: #ffc107; /* Color de las estrellas llenas */
+    }
+</style>
+{% endblock %}

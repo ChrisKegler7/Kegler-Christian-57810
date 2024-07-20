@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header_title %}
+Bienvenido a InkSpot
+{% endblock %}
+
+{% block header_description %}
+Tu lugar favorito para encontrar libros únicos y emocionantes.
+{% endblock %}
+
+{% block header %}
+<header class="bg-dark py-5">
+    <div class="container px-4 px-lg-5 my-5">
+        <div class="text-center text-white">
+            <h1 class="display-4 fw-bolder">{{ block.super }}</h1>
+            <p class="lead fw-normal text-white-50 mb-0">{{ block.super }}</p>
+        </div>
+    </div>
+</header>
+{% endblock header %}
+
+{% block content %}
+<!-- Nosotros -->
+<section class="py-5 bg-secondary text-white">
+    <div class="container px-4 px-lg-5 mt-5">
+        <h2 class="fw-bolder text-center">Sobre Nosotros</h2>
+        <p class="lead text-center">En InkSpot, creemos que cada libro tiene el poder de transformar vidas. Nos apasiona conectar a los lectores con sus historias favoritas. Ofrecemos una selección curada de títulos, desde clásicos hasta novedades, para satisfacer todos los gustos.</p>
+    </div>
+</section>
+
+<!-- Beneficios -->
+<section class="py-5 bg-light text-dark">
+    <div class="container px-4 px-lg-5 mt-5">
+        <h2 class="fw-bolder text-center">¿Por Qué Elegirnos?</h2>
+        <ul class="list-unstyled text-center">
+            <li class="my-3"><i class="fas fa-shipping-fast fa-2x"></i> Envío gratuito en pedidos mayores a $50.</li>
+            <li class="my-3"><i class="fas fa-book-reader fa-2x"></i> Recomendaciones personalizadas para ti.</li>
+            <li class="my-3"><i class="fas fa-star fa-2x"></i> Programa de fidelidad con descuentos exclusivos.</li>
+        </ul>
+    </div>
+</section>
+
+<!-- Clientes -->
+<section class="py-5 bg-success text-white">
+    <div class="container px-4 px-lg-5 mt-5">
+        <h2 class="fw-bolder text-center">Lo Que Dicen Nuestros Clientes</h2>
+        <blockquote class="blockquote text-center">
+            <p class="mb-3">"InkSpot es mi librería favorita. Siempre encuentro lo que busco!"</p>
+            <footer class="blockquote-footer text-white">Cliente Satisfecho</footer>
+        </blockquote>
+    </div>
+</section>
+
+{% endblock content %}

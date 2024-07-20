@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block header_title %}
+    Tu Carrito de Compras
+{% endblock %}
+
+{% block header_description %}
+    Revisa los libros que has añadido a tu carrito
+{% endblock header_description %}
+
+{% block content %}
+<div class="container">
+    <h1 class="my-4">Carrito de Compras</h1>
+    {% if detalles_carrito %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Libro</th>
+                <th>Cantidad</th>
+                <th>Subtotal</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in detalles_carrito %}
+                <tr>
+                    <td>{{ item.libro.titulo }}</td>
+                    <td>{{ item.cantidad }}</td>
+                    <td>{{ item.subtotal }}</td>
+                    <td>
+                        <!-- Formulario para quitar del carrito -->
+                        <form action="{% url 'libreria:quitar_del_carrito' item.libro.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="_method" value="DELETE">
+                            <button type="submit" class="btn btn-outline-danger">Quitar</button>
+                        </form>                        
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <div class="text-end">
+        <h4>Total: {{ total }}</h4>
+    </div>
+    <div class="text-end mt-3">
+        {% if total > 0 %}
+        <a href="{% url 'libreria:checkout' %}" class="btn btn-primary">Proceder al Pago</a>
+        {% else %}
+        <button class="btn btn-primary" disabled>Proceder al Pago</button>
+        {% endif %}
+    </div>
+    {% else %}
+    <p>Tu carrito está vacío.</p>
+    {% endif %}
+</div>
+{% endblock %}

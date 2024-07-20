@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white py-3">
+                    Actualiza tu perfil, {{ user.username }}
+                </div>
+                <div class="card-body bg-light">
+                    <form method="post" enctype="multipart/form-data" class="row g-3">
+                        {% csrf_token %}
+                        <div class="col-md-6">
+                            <label for="id_ubicacion" class="form-label"><i class="bi bi-geo-alt"></i> Ubicación</label>
+                            {{ formulario.ubicacion }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_fecha_nacimiento" class="form-label"><i class="bi bi-calendar"></i> Fecha de nacimiento</label>
+                            {{ formulario.fecha_nacimiento }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_biografia" class="form-label"><i class="bi bi-file-person"></i> Biografía</label>
+                            {{ formulario.biografia }}
+                        </div>
+                        <div class="col-md-6">
+                            <label for="id_avatar" class="form-label"><i class="bi bi-image"></i> Avatar</label>
+                            {{ formulario.avatar }}
+                            <!-- Previsualización de avatar (opcional) -->
+                            <img id="avatar-preview" src="#" alt="Previsualización" style="display: none; max-width: 100px; margin-top: 10px;">
+                        </div>
+                        <div class="col-12">
+                            <button type="submit" class="btn btn-primary">Guardar cambios</button>
+                            <!-- Enlace para eliminar cuenta -->
+                            <a href="#" class="btn btn-danger ms-2" onclick="return confirm('¿Estás seguro de que deseas eliminar tu cuenta?')"><i class="bi bi-trash"></i> Eliminar cuenta</a>
+                            <!-- Mensaje de confirmación (opcional) -->
+                            {% if cambios_guardados %}
+                            <div class="alert alert-success mt-3">
+                                ¡Cambios guardados correctamente!
+                            </div>
+                            {% endif %}
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Script para previsualizar el avatar -->
+<script>
+    document.getElementById('id_avatar').addEventListener('change', function() {
+        const fileInput = this;
+        const imgPreview = document.getElementById('avatar-preview');
+        if (fileInput.files && fileInput.files[0]) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imgPreview.src = e.target.result;
+                imgPreview.style.display = 'block';
+            };
+            reader.readAsDataURL(fileInput.files[0]);
+        }
+    });
+</script>
+{% endblock %}

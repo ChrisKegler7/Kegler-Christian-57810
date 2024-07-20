@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header_title %}
+    Detalles del Libro - {{ libro.titulo }}
+{% endblock header_title %}
+
+{% block content %}
+<div class="container py-4">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="{{ libro.imagen_url }}" alt="{{ libro.titulo }}" class="img-fluid">
+        </div>
+        <div class="col-md-8">
+            <h2>{{ libro.titulo }}</h2>
+            <p><strong>Autor:</strong> {{ libro.autor }}</p>
+            <p><strong>Año:</strong> {{ libro.fecha_publicacion }}</p>
+            <p>{{ libro.descripcion }}</p>
+            <p><strong>Precio:</strong> ${{ libro.precio }}</p>
+
+            {% if request.user.is_authenticated %}
+                {% if libro in deseos %}
+                    <form action="{% url 'libreria:quitar_de_deseados' libro.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Quitar de Deseados</button>
+                    </form>
+                {% else %}
+                    <form action="{% url 'libreria:agregar_a_deseados' libro.id %}" method="POST">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-primary">Agregar a Deseados</button>
+                    </form>
+                {% endif %}
+            {% endif %}
+            
+        </div>
+    </div>
+</div>
+{% endblock %}
+

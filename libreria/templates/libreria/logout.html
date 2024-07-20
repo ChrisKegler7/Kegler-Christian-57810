@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block header_title %}
+Cerrar Sesión
+{% endblock %}
+
+{% block header_description %}
+Gracias por visitarnos
+{% endblock %}
+
+{% block content %}
+    <!-- Section-->
+    <section class="py-5">
+        <div class="container px-4 px-lg-5 mt-5">
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center">
+                    <h2 class="mb-4">Has cerrado sesión</h2>
+                    <p>Esperamos verte pronto. Si deseas iniciar sesión nuevamente, puedes hacerlo a continuación.</p>
+                    <a href="{% url 'libreria:login' %}" class="btn btn-outline-dark mb-2">Iniciar Sesión</a>
+                    <a href="{% url 'libreria:home' %}" class="btn btn-secondary">Volver a la Página Principal</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+<!-- Footer -->
+<footer class="py-5 bg-dark">
+    <div class="container">
+        <p class="m-0 text-center text-white">© 2024 InkSpot</p>
+    </div>
+</footer>
+
